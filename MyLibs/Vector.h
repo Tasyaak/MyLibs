@@ -1,19 +1,14 @@
 #pragma once
 #include <stdexcept>
 
+template<typename Derived, typename T>
 class Vector
 {
 protected:
 	static const double eps;
-	double* v;
+	T* v;
 	int n;
 
-	void del()
-	{
-		delete[] v;
-		v = nullptr;
-		n = 0;
-	}
 public:
 	inline Vector() : v(nullptr), n(0) {}
 	Vector(double* u, int n);
@@ -92,5 +87,10 @@ public:
 	inline int getN() const { return n; }
 	void print() const;
 
-	~Vector() { del(); }
+	~Vector()
+	{
+		delete[] v;
+		v = nullptr;
+		n = 0;
+	}
 };
