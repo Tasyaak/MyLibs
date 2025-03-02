@@ -5,7 +5,7 @@
 
 double RowVector::operator * (const ColumnVector& u) const
 {
-	if (n != u.getN())
+	if (n != u.size())
 		throw std::invalid_argument("ColumnVector n doesn't match RowVector n");
 
 	double s = 0;

@@ -4,20 +4,12 @@
 class RowVector;
 class Matrix;
 
-class ColumnVector : public Vector
+template <typename T>
+class ColumnVector : public Vector<ColumnVector<T>, T>
 {
 public:
-	using Vector::Vector;
-	using Vector::operator [];
-	using Vector::operator =;
-
-	inline ColumnVector operator + (const ColumnVector& u) const { return Vector::operator + <ColumnVector>(u); }
-	inline ColumnVector operator - (const ColumnVector& u) const { return Vector::operator - <ColumnVector>(u); }
-	inline ColumnVector operator * (double k) const { return Vector::operator * <ColumnVector>(k); }
-	inline ColumnVector operator / (double k) const { return Vector::operator / <ColumnVector>(k); }
+	using Vector<ColumnVector<T>, T>::Vector;
 
 	Matrix operator * (const RowVector& u) const;
 	RowVector operator ~ () const;
-
-	~ColumnVector() { del(); }
 };

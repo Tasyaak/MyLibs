@@ -5,7 +5,7 @@
 
 Matrix ColumnVector::operator * (const RowVector& u) const
 {
-	int m = u.getN();
+	int m = u.size();
 	Matrix A(n, m);
 	for (int i = 0; i < n; ++i)
 		for (int j = 0; j < m; ++j)

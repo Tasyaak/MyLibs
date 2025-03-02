@@ -17,7 +17,7 @@ typename AdamsMoultonMethod<StateType>::ReturnType AdamsMoultonMethod<StateType>
         return 1 - h * 251 / 720 * (F(tn, y + H) - F(tn, y - H)) / (2 * H);
 	else if constexpr (std::is_same_v<StateType, ColumnVector>)
 	{
-		int n = y.getN();
+		int n = y.size();
 		Matrix f_prime(n);
 		ColumnVector f1, f2, y1 = y, y2 = y;
 		for (int j = 0; j < n; ++j)
