@@ -4,6 +4,7 @@
 # Но не игнорировать .gitignore и исходники
 !*/
 !.gitignore
-!**/*.cpp
-!**/*.tpp
-!**/*.h
+!MyLibs/include/*.hpp
+!MyLibs/include/*.tpp
+!MyLibs/include/*.h
+!MyLibs/src/*.cpp
