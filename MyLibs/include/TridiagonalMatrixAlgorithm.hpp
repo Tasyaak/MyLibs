@@ -13,4 +13,4 @@ public:
 	static ColumnVector<T> solveSystem(const Matrix<T>& A, const ColumnVector<T>& b);
 };
 
-#include "TridiagonalMatrixAlgorithm.tpp"
+#include "details/TridiagonalMatrixAlgorithm.tpp"

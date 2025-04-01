@@ -9,8 +9,8 @@ template<typename T>
 class QRAlgorithm
 {
 public:
-	static ColumnVector<T> solveSystem(const Matrix<T>& A, T* b, const double eps = 1e-9);
+	static T* solveSystem(const Matrix<T>& A, T* b, const double eps = 1e-9);
 	static ColumnVector<T> solveSystem(const Matrix<T>& A, const ColumnVector<T>& b, const double eps = 1e-9);
 };
 
-#include "QRAlgorithm.tpp"
+#include "details/QRAlgorithm.tpp"

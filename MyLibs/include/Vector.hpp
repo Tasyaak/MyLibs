@@ -21,24 +21,25 @@ public:
 	explicit Vector(std::initializer_list<T> init);
 	Vector(const Vector& v);
 	Vector(Vector&& v) noexcept;
-	template<typename Expr, typename = std::enable_if_t<is_vector_expression<Expr>::value>>
-	Vector(const Expr& expr);
+	template<typename VecExpr, typename = std::enable_if_t<is_vector_expression<VecExpr>::value>>
+	Vector(const VecExpr& expr);
 
 	T& operator [] (std::size_t i);
 	const T& operator [] (std::size_t i) const;
 	Vector& operator = (const Vector& v);
 	Vector& operator = (Vector&& v) noexcept;
-	template<typename Expr, typename = std::enable_if_t<is_vector_expression<Expr>::value>>
-	Vector& operator = (const Expr& expr);
+	template<typename VecExpr, typename = std::enable_if_t<is_vector_expression<VecExpr>::value>>
+	Vector& operator = (const VecExpr& expr);
 	Derived operator - () const;
 	Derived& operator += (const Derived& v);
 	Derived& operator -= (const Derived& v);
-	Derived& operator *= (const T& scalar);
+	template<typename U, typename = std::enable_if_t<std::is_convertible_v<U, T>>>
+	Derived& operator *= (const U& scalar);
 
 	double normInfinity() const;
 	double norm1() const;
 	double norm2() const;
-	T scalarSquare() const;
+	double scalarSquare() const;
 	T dotProduct(const Vector& v) const;
 	bool isZero() const;
 	bool empty() const { return n == 0; }
@@ -48,6 +49,13 @@ public:
 
 	~Vector();
 };
+
+template<typename VecExpr>
+double normInfinity(const VecExpr& expr);
+template<typename VecExpr>
+double norm1(const VecExpr& expr);
+template<typename VecExpr>
+double norm2(const VecExpr& expr);
 
 template<typename LHS, typename RHS,
 	typename = std::enable_if_t<is_vector_or_expression<LHS>::value>,
@@ -81,30 +89,30 @@ auto operator - (const LHS& lhs, const RHS& rhs) -> mathDetails::VecBinaryOp<LHS
 	return mathDetails::VecBinaryOp<LHS, RHS, mathDetails::Subtract>(lhs, rhs);
 }
 
-template<typename Expr, typename T,
-	typename = std::enable_if_t<is_vector_or_expression<Expr>::value>>
-auto operator * (const Expr& expr, const T& scalar) -> mathDetails::VecScalarOp<Expr, T, mathDetails::Multiply>
+template<typename VecExpr, typename T,
+	typename = std::enable_if_t<is_vector_or_expression<VecExpr>::value>>
+auto operator * (const VecExpr& expr, const T& scalar) -> mathDetails::VecScalarOp<VecExpr, T, mathDetails::Multiply>
 {
 	assert(!expr.empty() && "Vector is empty");
 
-	return mathDetails::VecScalarOp<Expr, T, mathDetails::Multiply>(expr, scalar);
+	return mathDetails::VecScalarOp<VecExpr, T, mathDetails::Multiply>(expr, scalar);
 }
-template<typename Expr, typename T,
-	typename = std::enable_if_t<is_vector_or_expression<Expr>::value>>
-auto operator * (const T& scalar, const Expr& expr) -> mathDetails::VecScalarOp<Expr, T, mathDetails::Multiply>
+template<typename VecExpr, typename T,
+	typename = std::enable_if_t<is_vector_or_expression<VecExpr>::value>>
+auto operator * (const T& scalar, const VecExpr& expr) -> mathDetails::VecScalarOp<VecExpr, T, mathDetails::Multiply>
 {
 	assert(!expr.empty() && "Vector is empty");
 
-	return mathDetails::VecScalarOp<Expr, T, mathDetails::Multiply>(expr, scalar);
+	return mathDetails::VecScalarOp<VecExpr, T, mathDetails::Multiply>(expr, scalar);
 }
 
-template<typename Expr, typename T,
-	typename = std::enable_if_t<is_vector_or_expression<Expr>::value>>
-auto operator / (const Expr& expr, const T& scalar) -> mathDetails::VecScalarOp<Expr, T, mathDetails::Divide>
+template<typename VecExpr, typename T,
+	typename = std::enable_if_t<is_vector_or_expression<VecExpr>::value>>
+auto operator / (const VecExpr& expr, const T& scalar) -> mathDetails::VecScalarOp<VecExpr, T, mathDetails::Divide>
 {
 	assert(!expr.empty() && "Vector is empty");
 
-	return mathDetails::VecScalarOp<Expr, T, mathDetails::Divide>(expr, scalar);
+	return mathDetails::VecScalarOp<VecExpr, T, mathDetails::Divide>(expr, scalar);
 }
 
-#include "Vector.tpp"
+#include "details/Vector.tpp"

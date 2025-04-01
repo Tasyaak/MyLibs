@@ -21,4 +21,4 @@ public:
 	ColumnVector<T> operator ~ () const;
 };
 
-#include "RowVector.tpp"
+#include "details/RowVector.tpp"

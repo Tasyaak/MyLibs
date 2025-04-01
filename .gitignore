@@ -6,5 +6,6 @@
 !.gitignore
 !MyLibs/include/*.hpp
 !MyLibs/include/*.tpp
+!MyLibs/include/details/*.tpp
 !MyLibs/include/*.h
 !MyLibs/src/*.cpp

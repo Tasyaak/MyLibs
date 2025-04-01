@@ -24,14 +24,15 @@ public:
 	explicit Matrix() : data(nullptr), n(0), m(0) {}
 	explicit Matrix(T** ptrMatrix, std::size_t n);
 	explicit Matrix(T** ptrMatrix, std::size_t n, std::size_t m);
+	explicit Matrix(T* ptrMatrix, std::size_t n);
 	explicit Matrix(T* ptrMatrix, std::size_t n, std::size_t m);
 	explicit Matrix(std::size_t n);
 	explicit Matrix(std::size_t n, std::size_t m);
 	explicit Matrix(std::initializer_list<std::initializer_list<T>> init);
 	Matrix(const Matrix& B);
 	Matrix(Matrix&& B) noexcept;
-	template<typename Expr, typename = std::enable_if_t<is_matrix_expression<Expr>::value>>
-	Matrix(const Expr& expr);
+	template<typename MatExpr, typename = std::enable_if_t<is_matrix_expression<MatExpr>::value>>
+	Matrix(const MatExpr& expr);
 
 	T* operator [] (std::size_t i);
 	const T* operator [] (std::size_t i) const;
@@ -39,11 +40,12 @@ public:
 	const T& operator () (std::size_t i, std::size_t j) const;
 	Matrix& operator = (const Matrix& B);
 	Matrix& operator = (Matrix&& B) noexcept;
-	template<typename Expr, typename = std::enable_if_t<is_matrix_expression<Expr>::value>>
-	Matrix& operator = (const Expr& expr);
+	template<typename MatExpr, typename = std::enable_if_t<is_matrix_expression<MatExpr>::value>>
+	Matrix& operator = (const MatExpr& expr);
 	Matrix& operator += (const Matrix& A);
 	Matrix& operator -= (const Matrix& A);
-	Matrix& operator *= (const T& scalar);
+	template<typename U, typename = std::enable_if_t<std::is_convertible_v<U, T>>>
+	Matrix& operator *= (const U& scalar);
 	Matrix operator * (const Matrix& B) const;
 	ColumnVector<T> operator * (const ColumnVector<T>& v) const;
 	Matrix operator ~ () const;
@@ -60,8 +62,8 @@ public:
 	void print(T* b) const;
 	void print(const ColumnVector<T>& b) const;
 
-	Matrix LUdecomposition() const; // единицы на главной диагонали матрицы U
-	std::pair<Matrix, Matrix> QRdecomposition(const double eps = 1e-9) const;
+	Matrix LUdecomposition(const double eps = 1e-9) const; // единицы на главной диагонали матрицы U
+	std::pair<Matrix, Matrix> QRdecomposition(const double eps = 1e-9) const; // Хаусхолдера
 
 	~Matrix();
 };
@@ -98,30 +100,30 @@ auto operator - (const LHS& lhs, const RHS& rhs) -> mathDetails::MatBinaryOp<LHS
 	return mathDetails::MatBinaryOp<LHS, RHS, mathDetails::Subtract>(lhs, rhs);
 }
 
-template<typename Expr, typename T,
-	typename = std::enable_if_t<is_matrix_or_expression<Expr>::value>>
-auto operator * (const Expr& expr, const T& scalar) -> mathDetails::MatScalarOp<Expr, T, mathDetails::Multiply>
+template<typename MatExpr, typename T,
+	typename = std::enable_if_t<is_matrix_or_expression<MatExpr>::value>>
+auto operator * (const MatExpr& expr, const T& scalar) -> mathDetails::MatScalarOp<MatExpr, T, mathDetails::Multiply>
 {
 	assert(!expr.empty() && "Matrix is empty");
 
-	return mathDetails::MatScalarOp<Expr, T, mathDetails::Multiply>(expr, scalar);
+	return mathDetails::MatScalarOp<MatExpr, T, mathDetails::Multiply>(expr, scalar);
 }
-template<typename Expr, typename T,
-	typename = std::enable_if_t<is_matrix_or_expression<Expr>::value>>
-	auto operator * (const T& scalar, const Expr& expr) -> mathDetails::MatScalarOp<Expr, T, mathDetails::Multiply>
+template<typename MatExpr, typename T,
+	typename = std::enable_if_t<is_matrix_or_expression<MatExpr>::value>>
+	auto operator * (const T& scalar, const MatExpr& expr) -> mathDetails::MatScalarOp<MatExpr, T, mathDetails::Multiply>
 {
 	assert(!expr.empty() && "Matrix is empty");
 
-	return mathDetails::MatScalarOp<Expr, T, mathDetails::Multiply>(expr, scalar);
+	return mathDetails::MatScalarOp<MatExpr, T, mathDetails::Multiply>(expr, scalar);
 }
 
-template<typename Expr, typename T,
-	typename = std::enable_if_t<is_matrix_or_expression<Expr>::value>>
-auto operator / (const Expr& expr, const T& scalar) -> mathDetails::MatScalarOp<Expr, T, mathDetails::Divide>
+template<typename MatExpr, typename T,
+	typename = std::enable_if_t<is_matrix_or_expression<MatExpr>::value>>
+auto operator / (const MatExpr& expr, const T& scalar) -> mathDetails::MatScalarOp<MatExpr, T, mathDetails::Divide>
 {
 	assert(!expr.empty() && "Matrix is empty");
 
-	return mathDetails::MatScalarOp<Expr, T, mathDetails::Divide>(expr, scalar);
+	return mathDetails::MatScalarOp<MatExpr, T, mathDetails::Divide>(expr, scalar);
 }
 
-#include "Matrix.tpp"
+#include "details/Matrix.tpp"

@@ -1,7 +1,6 @@
 #include "TridiagonalMatrixAlgorithm.hpp"
 #include "Matrix.hpp"
 #include "ColumnVector.hpp"
-#include "mathDetails.hpp"
 
 template<typename T>
 T* TridiagonalMatrixAlgorithm<T>::solveSystem(const Matrix<T>& A, T* b)
@@ -23,7 +22,7 @@ T* TridiagonalMatrixAlgorithm<T>::solveSystem(const Matrix<T>& A, T* b)
 
 	T* x = new T[n];
 	x[n - 1] = bet[n - 1];
-	for (std::size_t i = n - 2; i >= 0; --i)
+	for (std::size_t i = n - 1; i-- > 0;)
 		x[i] = alp[i] * x[i + 1] + bet[i];
 	delete[] alp;
 	delete[] bet;
@@ -49,9 +48,9 @@ ColumnVector<T> TridiagonalMatrixAlgorithm<T>::solveSystem(const Matrix<T>& A, c
 	}
 	bet[n - 1] = (b[n - 1] - A(n - 1, n - 2) * bet[n - 2]) / (A(n - 1, n - 1) + A(n - 1, n - 2) * alp[n - 2]);
 
-	ColumnVector<T> x(n, mathDetails::NoInitTag{})
+	ColumnVector<T> x(n, mathDetails::NoInitTag{});
 	x[n - 1] = bet[n - 1];
-	for (std::size_t i = n - 2; i >= 0; --i)
+	for (std::size_t i = n - 1; i-- > 0;)
 		x[i] = alp[i] * x[i + 1] + bet[i];
 	delete[] alp;
 	delete[] bet;

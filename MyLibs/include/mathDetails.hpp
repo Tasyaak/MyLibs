@@ -17,14 +17,20 @@ namespace mathDetails
 
 	struct Multiply
 	{
-		template<typename T>
-		static T apply(const T& a, const T& scalar) { return a * scalar; }
+		template<typename T, typename U, typename = std::enable_if_t<std::is_convertible_v<U, T>>>
+		static T apply(const T& a, const U& scalar)
+		{
+			return a * static_cast<T>(scalar);
+		}
 	};
 
 	struct Divide
 	{
-		template<typename T>
-		static T apply(const T& a, const T& scalar) { return a / scalar; }
+		template<typename T, typename U, typename = std::enable_if_t<std::is_convertible_v<U, T>>>
+		static T apply(const T& a, const U& scalar)
+		{
+			return a / static_cast<T>(scalar);
+		}
 	};
 
 	template<typename LHS, typename RHS, typename Op>
@@ -48,17 +54,17 @@ namespace mathDetails
 		std::size_t size() const { return lhs.size(); }
 	};
 
-	template<typename Expr, typename T, typename Op>
+	template<typename VecExpr, typename T, typename Op>
 	class VecScalarOp
 	{
 	private:
-		const Expr& expr;
+		const VecExpr& expr;
 		T scalar;
 
 	public:
 		using vector_expr_tag = void;
 
-		VecScalarOp(const Expr& expr, T scalar) : expr(expr), scalar(scalar) {}
+		VecScalarOp(const VecExpr& expr, T scalar) : expr(expr), scalar(scalar) {}
 
 		auto operator[](std::size_t i) const -> decltype(Op::apply(expr[i], scalar))
 		{
@@ -91,17 +97,17 @@ namespace mathDetails
 		std::size_t numCols() const { return lhs.numCols(); }
 	};
 
-	template<typename Expr, typename T, typename Op>
+	template<typename MatExpr, typename T, typename Op>
 	class MatScalarOp
 	{
 	private:
-		const Expr& expr;
+		const MatExpr& expr;
 		T scalar;
 
 	public:
 		using matrix_expr_tag = void;
 
-		MatScalarOp(const Expr& expr, T scalar) : expr(expr), scalar(scalar) {}
+		MatScalarOp(const MatExpr& expr, T scalar) : expr(expr), scalar(scalar) {}
 
 		auto operator()(std::size_t i, std::size_t j) const -> decltype(Op::apply(expr(i, j), scalar))
 		{

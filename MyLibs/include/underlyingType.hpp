@@ -2,7 +2,7 @@
 #include "traits.hpp"
 #include "mathDetails.hpp"
 
-// Базовый случай: для настоящего вектора тип остаётся тем же.
+// Базовый случай: для настоящего вектора тип остаётся тем же
 template<typename T>
 struct underlying_vector
 {
@@ -26,7 +26,7 @@ struct underlying_vector<mathDetails::VecScalarOp<Expr, T, Op>>
 template<typename T>
 using underlying_vector_t = typename underlying_vector<T>::type;
 
-// Базовый случай: для настоящей матрицы тип остаётся тем же.
+// Базовый случай: для настоящей матрицы тип остаётся тем же
 template<typename T>
 struct underlying_matrix
 {

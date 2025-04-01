@@ -25,4 +25,4 @@ public:
 	std::vector<StateType> solve(double h, const StateType& y0) const;
 };
 
-#include "AdamsMoultonMethod.tpp"
+#include "details/AdamsMoultonMethod.tpp"
