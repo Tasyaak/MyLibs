@@ -1,6 +1,5 @@
 #pragma once
-#include "traits.hpp"
-#include "mathDetails.hpp"
+#include "fwd.hpp"
 
 // Базовый случай: для настоящего вектора тип остаётся тем же
 template<typename T>

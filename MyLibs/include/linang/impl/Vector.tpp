@@ -2,8 +2,8 @@
 #include <iomanip>
 #include <sstream>
 #include <cmath>
-#include <complex>
-#include "Vector.hpp"
+#include "../Vector.hpp"
+#include "core/complexUtils.hpp"
 
 template<typename Derived, typename T>
 Vector<Derived, T>::Vector(T* ptrArray, std::size_t n) : data(nullptr), n(n)
@@ -129,8 +129,8 @@ Derived Vector<Derived, T>::operator - () const
 	std::size_t size = n;
 	Derived v(size, mathDetails::NoInitTag{});
 	for (std::size_t i = 0; i < size; ++i)
-		v.data[i] = -data[i];
-	return v;
+		v[i] = -data[i];
+	return static_cast<Derived>(v);
 }
 template<typename Derived, typename T>
 Derived& Vector<Derived, T>::operator += (const Derived& v)
@@ -217,18 +217,6 @@ double Vector<Derived, T>::scalarSquare() const
 		sum += a * a;
 	}
 	return sum;
-}
-
-template<typename U>
-inline auto myConj(const U& value) -> std::enable_if_t<std::is_floating_point_v<U>, U>
-{
-	return value;
-}
-
-template<typename U>
-inline auto myConj(const std::complex<U>& value) -> std::complex<U>
-{
-	return std::conj(value);
 }
 
 template<typename Derived, typename T>

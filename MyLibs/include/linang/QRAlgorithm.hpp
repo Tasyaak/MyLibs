@@ -13,4 +13,4 @@ public:
 	static ColumnVector<T> solveSystem(const Matrix<T>& A, const ColumnVector<T>& b, const double eps = 1e-9);
 };
 
-#include "details/QRAlgorithm.tpp"
+#include "impl/QRAlgorithm.tpp"

@@ -1,6 +1,6 @@
-#include "RowVector.hpp"
-#include "ColumnVector.hpp"
-#include "Matrix.hpp"
+#include "../RowVector.hpp"
+#include "../ColumnVector.hpp"
+#include "../Matrix.hpp"
 
 template <typename T>
 T RowVector<T>::operator * (const ColumnVector<T>& v) const

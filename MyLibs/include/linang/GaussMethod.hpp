@@ -20,4 +20,4 @@ public:
 	static ColumnVector<T> solveSystem(Matrix<T> A, ColumnVector<T> b, const double eps = 1e-9);
 };
 
-#include "details/GaussMethod.tpp"
+#include "impl/GaussMethod.tpp"

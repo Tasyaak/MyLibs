@@ -1,7 +1,7 @@
 #include <cmath>
-#include "GaussMethod.hpp"
-#include "Matrix.hpp"
-#include "ColumnVector.hpp"
+#include "../GaussMethod.hpp"
+#include "../Matrix.hpp"
+#include "../ColumnVector.hpp"
 
 template<typename T>
 void GaussMethod<T>::forwardElimination(Matrix<T>& A, const double eps)

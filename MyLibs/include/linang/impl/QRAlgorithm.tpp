@@ -1,9 +1,9 @@
 #include <cmath>
 #include <tuple>
-#include "QRAlgorithm.hpp"
-#include "GaussMethod.hpp"
-#include "Matrix.hpp"
-#include "ColumnVector.hpp"
+#include "../QRAlgorithm.hpp"
+#include "../GaussMethod.hpp"
+#include "../Matrix.hpp"
+#include "../ColumnVector.hpp"
 
 template<typename T>
 T* QRAlgorithm<T>::solveSystem(const Matrix<T>& A, T* b, const double eps)

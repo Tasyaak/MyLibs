@@ -16,9 +16,8 @@ protected:
 public:
 	using Vector<ColumnVector<T>, T>::Vector;
 
-
 	Matrix<T> operator * (const RowVector<T>& u) const;
 	RowVector<T> operator ~ () const;
 };
 
-#include "details/ColumnVector.tpp"
+#include "impl/ColumnVector.tpp"

@@ -3,9 +3,10 @@
 #include <sstream>
 #include <algorithm>
 #include <cmath>
-#include "Matrix.hpp"
-#include "ColumnVector.hpp"
-#include "RowVector.hpp"
+#include "../Matrix.hpp"
+#include "../ColumnVector.hpp"
+#include "../RowVector.hpp"
+#include "core/complexUtils.hpp"
 
 template<typename T>
 Matrix<T>::Matrix(T** ptrMatrix, std::size_t n) : data(nullptr), n(n), m(n)
@@ -362,6 +363,106 @@ void Matrix<T>::swapCols(std::size_t k, std::size_t l)
 	}
 }
 template<typename T>
+T Matrix<T>::det(const double eps) const
+{
+	assert(n == m && "Matrix isn't square for determinant");
+
+	Matrix<T> A(data, n);
+	T res = T{ 1 };
+	for (std::size_t i = 0; i < n; ++i)
+	{
+		std::size_t in = i * n;
+		std::size_t ind = i;
+		for (std::size_t j = i + 1; j < n; ++j)
+			if (abs(A.data[ind * n + i]) < abs(A.data[j * n + i]))
+				ind = j;
+
+		if (abs(A.data[ind * n + i]) < eps)
+			return T{};
+
+		if (ind != i)
+		{
+			res *= T{ -1 };
+			A.swapRows(i, ind);
+		}
+		res *= A.data[in + i];
+		for (std::size_t j = i + 1; j < n; ++j)
+		{
+			std::size_t jn = j * n;
+			if (abs(A.data[jn + i]) >= eps)
+			{
+				T k = A.data[jn + i] / A.data[in + i];
+				A.data[jn + i] = T{};
+				for (std::size_t l = i + 1; l < n; ++l)
+					A.data[jn + l] -= A.data[in + l] * k;
+			}
+		}
+	}
+	return res;
+}
+template<typename T>
+Matrix<T> Matrix<T>::inverse(const double eps) const
+{
+	assert(n == m && "Matrix isn't square for determinant");
+
+	Matrix<T> A(data, n);
+	Matrix<T> res(n);
+	for (std::size_t i = 0; i < n; ++i)
+	{
+		std::size_t in = i * n;
+		std::size_t ind = i;
+		for (std::size_t j = i + 1; j < n; ++j)
+			if (abs(A.data[ind * n + i]) < abs(A.data[j * n + i]))
+				ind = j;
+
+		assert(abs(A.data[ind * n + i]) >= eps && "Matrix is singular => inverse doesn't exist");
+
+		if (ind != i)
+		{
+			res.swapRows(i, ind);
+			A.swapRows(i, ind);
+		}
+		for (std::size_t j = i + 1; j < n; ++j)
+		{
+			std::size_t jn = j * n;
+			if (abs(A.data[jn + i]) >= eps)
+			{
+				T k = A.data[jn + i] / A.data[in + i];
+				A.data[jn + i] = T{};
+
+				for (std::size_t l = 0; l <= i; ++l)
+					res.data[jn + l] -= res.data[in + l] * k;
+				for (std::size_t l = i + 1; l < n; ++l)
+				{
+					res.data[jn + l] -= res.data[in + l] * k;
+					A.data[jn + l] -= A.data[in + l] * k;
+				}
+			}
+		}
+	}
+	for (std::size_t i = n; i-- > 0;)
+	{
+		std::size_t in = i * n;
+
+		for (std::size_t j = 0; j < n; ++j)
+			res.data[in + j] /= A.data[in + i];
+		A.data[in + i] = T{ 1 };
+
+		for (std::size_t j = 0; j < i; ++j)
+		{
+			std::size_t jn = j * n;
+			if (abs(A.data[jn + i]) >= eps)
+			{
+				for (std::size_t l = 0; l < n; ++l)
+					res.data[jn + l] -= res.data[in + l] * A.data[jn + i];
+
+				A.data[jn + i] = T{};
+			}
+		}
+	}
+	return res;
+}
+template<typename T>
 std::string Matrix<T>::toString() const
 {
 	if (empty())
@@ -474,8 +575,74 @@ void Matrix<T>::print(const ColumnVector<T>& b) const
 }
 
 template<typename T>
+Matrix<T> Matrix<T>::adjoint() const
+{
+	assert(!empty() && "Matrix is empty");
+
+	Matrix A(data, n, m);
+	for (std::size_t i = 0; i < n; ++i)
+	{
+		std::size_t in = i * n;
+		for (std::size_t j = 0; j < m; ++j)
+		{
+			std::size_t jn = j * n;
+			A.data[jn + i] = myConj(data[in + j]);
+		}
+	}
+	return A;
+}
+template<typename T>
+bool Matrix<T>::isHermitian(const double eps) const
+{
+	double amax = 0.0;
+	for (std::size_t k = 0; k < n; ++k)
+		amax = std::max(amax, std::abs(data[k * n + k]));
+
+	double thresh = eps * std::max(1.0, amax);
+
+	for (std::size_t i = 1; i < n; ++i)
+	{
+		std::size_t in = i * n;
+		for (std::size_t j = 0; j < i; ++j)
+			if (std::abs(data[in + j] - myConj(data[j * n + i])) > thresh)
+				return false;
+	}
+	return true;
+}
+template<typename T>
+bool Matrix<T>::isPositiveDefinite(const double eps) const
+{
+	assert(!empty() && "Matrix is empty");
+	assert(n == m && "Matrix isn't square => checking for positive definiteness is invalid");
+	assert(isHermitian(eps) && "Matrix isn't hermitian => checking for positive definiteness is invalid");
+
+	Matrix<T> A(data, n, n);
+	for (std::size_t k = 0; k < n; ++k)
+	{
+		std::size_t kn = k * n;
+		T s = A.data[kn + k];
+		for (std::size_t j = 0; j < k; ++j)
+			s -= A.data[kn + j] * myConj(A.data[kn + j]);
+		if (std::real(s) <= 0 || std::abs(std::imag(s)) > eps * std::real(A.data[kn + k]))
+			return false;
+		
+		A.data[kn + k] = std::sqrt(std::real(s));
+		T invAkk = 1 / A.data[kn + k];
+		for (std::size_t i = k + 1; i < n; ++i)
+		{
+			std::size_t in = i * n;
+			s = T{};
+			for (std::size_t j = 0; j < k; ++j)
+				s += A.data[in + j] * myConj(A.data[kn + j]);
+			A.data[in + k] = (A.data[in + k] - s) * invAkk;
+		}
+	}
+	return true;
+}
+template<typename T>
 Matrix<T> Matrix<T>::LUdecomposition(const double eps) const
 {
+	assert(!empty() && "Matrix is empty");
 	assert(n == m && "Matrix isn't square => LU-decomposition doesn't exist");
 
 	Matrix<T> LU(n, mathDetails::NoInitTag{});
@@ -512,6 +679,7 @@ Matrix<T> Matrix<T>::LUdecomposition(const double eps) const
 template<typename T>
 std::pair<Matrix<T>, Matrix<T>> Matrix<T>::QRdecomposition(const double eps) const
 {
+	assert(!empty() && "Matrix is empty");
 	assert(n == m && "Matrix isn't square => QR-decomposition doesn't exist");
 
 	Matrix<T> R(data, n);

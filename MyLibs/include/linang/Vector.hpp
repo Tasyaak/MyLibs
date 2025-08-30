@@ -2,7 +2,10 @@
 #include <string>
 #include <initializer_list>
 #include <cassert>
-#include "underlyingType.hpp"
+#include "details/underlyingType.hpp"
+#include "details/expr.hpp"
+#include "details/traits.hpp"
+
 
 template<typename Derived, typename T>
 class Vector
@@ -115,4 +118,4 @@ auto operator / (const VecExpr& expr, const T& scalar) -> mathDetails::VecScalar
 	return mathDetails::VecScalarOp<VecExpr, T, mathDetails::Divide>(expr, scalar);
 }
 
-#include "details/Vector.tpp"
+#include "impl/Vector.tpp"

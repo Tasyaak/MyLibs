@@ -3,7 +3,9 @@
 #include <initializer_list>
 #include <cassert>
 #include <utility>
-#include "underlyingType.hpp"
+#include "details/underlyingType.hpp"
+#include "details/expr.hpp"
+#include "details/traits.hpp"
 
 template<typename T>
 class ColumnVector;
@@ -56,12 +58,17 @@ public:
 	void swapCols(std::size_t k, std::size_t l);
 	std::size_t numRows() const { return n; }
 	std::size_t numCols() const { return m; }
+	T det(const double eps = 1e-9) const;
+	Matrix inverse(const double eps = 1e-9) const;
 	bool empty() const { return n == 0 || m == 0; }
 	std::string toString() const;
 	void print() const;
 	void print(T* b) const;
 	void print(const ColumnVector<T>& b) const;
 
+	Matrix adjoint() const;
+	bool isHermitian(const double eps = 1e-15) const;
+	bool isPositiveDefinite(const double eps = 1e-15) const;
 	Matrix LUdecomposition(const double eps = 1e-9) const; // единицы на главной диагонали матрицы U
 	std::pair<Matrix, Matrix> QRdecomposition(const double eps = 1e-9) const; // Хаусхолдера
 
@@ -126,4 +133,4 @@ auto operator / (const MatExpr& expr, const T& scalar) -> mathDetails::MatScalar
 	return mathDetails::MatScalarOp<MatExpr, T, mathDetails::Divide>(expr, scalar);
 }
 
-#include "details/Matrix.tpp"
+#include "impl/Matrix.tpp"

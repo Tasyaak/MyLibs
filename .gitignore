@@ -4,8 +4,14 @@
 # Но не игнорировать .gitignore и исходники
 !*/
 !.gitignore
-!MyLibs/include/*.hpp
-!MyLibs/include/*.tpp
-!MyLibs/include/details/*.tpp
-!MyLibs/include/*.h
 !MyLibs/src/*.cpp
+
+!MyLibs/include/core/*.hpp
+
+!MyLibs/include/linang/*.hpp
+!MyLibs/include/linang/details/*.hpp
+!MyLibs/include/linang/impl/*.tpp
+
+!MyLibs/include/ode/*.hpp
+!MyLibs/include/ode/details/*.hpp
+!MyLibs/include/ode/impl/*.tpp
