@@ -1,17 +1,33 @@
-# Игнорировать все файлы
-*
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.VC.db
+*.opendb
+ipch/
+*.tlog
+*.log
 
-# Но не игнорировать .gitignore и исходники
-!*/
-!.gitignore
-!MyLibs/src/*.cpp
+# Сборки и кэш
+**/Debug/
+**/Release/
+**/x64/
+*.obj
+*.pch
+*.pdb
+*.idb
+*.iobj
+*.ipdb
+*.ilk
+*.exe
+*.dll
+*.lib
 
-!MyLibs/include/core/*.hpp
+# Пакеты и прочее
+packages/
+*.nupkg
+*.snupkg
 
-!MyLibs/include/linang/*.hpp
-!MyLibs/include/linang/details/*.hpp
-!MyLibs/include/linang/impl/*.tpp
-
-!MyLibs/include/ode/*.hpp
-!MyLibs/include/ode/details/*.hpp
-!MyLibs/include/ode/impl/*.tpp
+# Генераторы/временные
+*.tmp
+*.cache
