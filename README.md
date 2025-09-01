@@ -28,7 +28,7 @@ Static library for numerical methods (linear algebra and ODE methods)
   - LU and QR decompositions
 - **[Vector](MyLibs/include/linalg/Vector.hpp)**:
   - arithmetic on vectors
-  - \(\left\lVert \cdot \right\rVert_1\) (Manhattan), \(\left\lVert \cdot \right\rVert_2\) (Euclidean), \(\left\lVert \cdot \right\rVert_\infty\) (Chebyshev) norms
+  - ‖·‖₁ (Manhattan), ‖·‖₂ (Euclidean), ‖·‖∞ (Chebyshev) norms
   - inner (dot) product
 - **[ColumnVector](MyLibs/include/linalg/ColumnVector.hpp), [RowVector](MyLibs/include/linalg/RowVector.hpp)**:
   - transpose
@@ -39,9 +39,9 @@ Static library for numerical methods (linear algebra and ODE methods)
 - **[QRAlgorithm](MyLibs/include/linalg/QRAlgorithm.hpp)**:
   - solves linear systems via QR factorization
 - **[TridiagonalMatrixAlgorithm](MyLibs/include/linalg/TridiagonalMatrixAlgorithm.hpp)**:
-  - Thomas algorithm for tridiagonal linear systems
+  - solves tridiagonal linear systems via Thomas algorithm
 - **[AdamsMoultonMethod](MyLibs/include/ode/AdamsMoultonMethod.hpp)**:
-  - implicit 5-step Adams-Moulton solver for initial-value problems for ODEs (systems)
+  - implicit 5-step Adams-Moulton solver for initial-value problems for ODEs and systems of ODE
 
 ### Expression templates (lazy evaluation)
 Matrix and vector arithmetic uses expression templates. Chained expressions allocate no temporaries and evaluation is fused at assignment.
@@ -67,12 +67,12 @@ graph LR
 - C++17 enabled
 
 ## Build (Visual Studio)
-1. Open `MyLibsSolution.sln`.
-2. Build **MyLibs** as `Static library (.lib)` in Debug/Release.
+1. Open `MyLibsSolution.sln`
+2. Build **MyLibs** as `Static library (.lib)` in Debug/Release
 3. Add to your project in properties:
-   - **C/C++** \(\rightarrow\) **Additional Include Directories** \(\rightarrow\) `<Your_path>\MyLibsSolution\MyLibs\include`
-   - **Linker** \(\rightarrow\) **Additional Library Directories** \(\rightarrow\) `<Your_path>\MyLibs\x64\<Config>`
-   - **Linker** \(\rightarrow\) **Input** \(\rightarrow\) **Additional Dependencies** \(\rightarrow\) `MyLibs.lib`
+   - **C/C++** → **Additional Include Directories** → `<Your_path>\MyLibsSolution\MyLibs\include`
+   - **Linker** → **Additional Library Directories** → `<Your_path>\MyLibs\x64\<Config>`
+   - **Linker** → **Input** → **Additional Dependencies** → `MyLibs.lib`
 
 ## Examples
 - Power method: [examples/power_method/main.cpp](examples/power_method/main.cpp)

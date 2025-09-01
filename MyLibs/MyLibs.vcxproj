@@ -166,7 +166,7 @@
     <ClInclude Include="include\linalg\GaussMethod.hpp" />
     <ClInclude Include="include\linalg\Matrix.hpp" />
     <ClInclude Include="include\linalg\QRAlgorithm.hpp" />
-    <ClInclude Include="include\linalg\details\RingBuffer.hpp" />
+    <ClInclude Include="include\core\RingBuffer.hpp" />
     <ClInclude Include="include\linalg\RowVector.hpp" />
     <ClInclude Include="include\linalg\details\traits.hpp" />
     <ClInclude Include="include\linalg\TridiagonalMatrixAlgorithm.hpp" />

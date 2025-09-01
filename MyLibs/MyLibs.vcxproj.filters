@@ -74,9 +74,6 @@
     <ClInclude Include="include\linalg\details\underlyingType.hpp">
       <Filter>Файлы заголовков\linalg\details</Filter>
     </ClInclude>
-    <ClInclude Include="include\linalg\details\RingBuffer.hpp">
-      <Filter>Файлы заголовков\linalg\details</Filter>
-    </ClInclude>
     <ClInclude Include="include\ode\AdamsMoultonMethod.hpp">
       <Filter>Файлы заголовков\ode</Filter>
     </ClInclude>
@@ -90,6 +87,9 @@
       <Filter>Файлы заголовков\linalg\details</Filter>
     </ClInclude>
     <ClInclude Include="include\core\config.hpp">
+      <Filter>Файлы заголовков\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\RingBuffer.hpp">
       <Filter>Файлы заголовков\core</Filter>
     </ClInclude>
   </ItemGroup>

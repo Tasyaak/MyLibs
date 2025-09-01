@@ -1,5 +1,6 @@
 #pragma once
 #include <cassert>
+#include "core/config.hpp"
 
 template <typename T>
 class RingBuffer
