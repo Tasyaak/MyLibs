@@ -3,6 +3,7 @@
 #include <initializer_list>
 #include <cassert>
 #include <utility>
+#include "core/config.hpp"
 #include "details/underlyingType.hpp"
 #include "details/expr.hpp"
 #include "details/traits.hpp"

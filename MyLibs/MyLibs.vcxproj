@@ -78,6 +78,9 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -95,6 +98,9 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -113,7 +119,10 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -131,6 +140,9 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -144,45 +156,46 @@
     <ClCompile Include="src\dummy.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\linang\details\expr.hpp" />
-    <ClInclude Include="include\linang\details\fwd.hpp" />
-    <ClInclude Include="include\linang\details\ops.hpp" />
+    <ClInclude Include="include\core\config.hpp" />
+    <ClInclude Include="include\linalg\details\expr.hpp" />
+    <ClInclude Include="include\linalg\details\fwd.hpp" />
+    <ClInclude Include="include\linalg\details\ops.hpp" />
     <ClInclude Include="include\ode\AdamsMoultonMethod.hpp" />
-    <ClInclude Include="include\linang\ColumnVector.hpp" />
+    <ClInclude Include="include\linalg\ColumnVector.hpp" />
     <ClInclude Include="include\core\complexUtils.hpp" />
-    <ClInclude Include="include\linang\GaussMethod.hpp" />
-    <ClInclude Include="include\linang\Matrix.hpp" />
-    <ClInclude Include="include\linang\QRAlgorithm.hpp" />
-    <ClInclude Include="include\linang\details\RingBuffer.hpp" />
-    <ClInclude Include="include\linang\RowVector.hpp" />
-    <ClInclude Include="include\linang\details\traits.hpp" />
-    <ClInclude Include="include\linang\TridiagonalMatrixAlgorithm.hpp" />
-    <ClInclude Include="include\linang\details\underlyingType.hpp" />
-    <ClInclude Include="include\linang\Vector.hpp" />
+    <ClInclude Include="include\linalg\GaussMethod.hpp" />
+    <ClInclude Include="include\linalg\Matrix.hpp" />
+    <ClInclude Include="include\linalg\QRAlgorithm.hpp" />
+    <ClInclude Include="include\linalg\details\RingBuffer.hpp" />
+    <ClInclude Include="include\linalg\RowVector.hpp" />
+    <ClInclude Include="include\linalg\details\traits.hpp" />
+    <ClInclude Include="include\linalg\TridiagonalMatrixAlgorithm.hpp" />
+    <ClInclude Include="include\linalg\details\underlyingType.hpp" />
+    <ClInclude Include="include\linalg\Vector.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\ode\impl\AdamsMoultonMethod.tpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </None>
-    <None Include="include\linang\impl\ColumnVector.tpp">
+    <None Include="include\linalg\impl\ColumnVector.tpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </None>
-    <None Include="include\linang\impl\GaussMethod.tpp">
+    <None Include="include\linalg\impl\GaussMethod.tpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </None>
-    <None Include="include\linang\impl\Matrix.tpp">
+    <None Include="include\linalg\impl\Matrix.tpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </None>
-    <None Include="include\linang\impl\QRAlgorithm.tpp">
+    <None Include="include\linalg\impl\QRAlgorithm.tpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </None>
-    <None Include="include\linang\impl\RowVector.tpp">
+    <None Include="include\linalg\impl\RowVector.tpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </None>
-    <None Include="include\linang\impl\TridiagonalMatrixAlgorithm.tpp">
+    <None Include="include\linalg\impl\TridiagonalMatrixAlgorithm.tpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </None>
-    <None Include="include\linang\impl\Vector.tpp">
+    <None Include="include\linalg\impl\Vector.tpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </None>
   </ItemGroup>

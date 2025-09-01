@@ -2,6 +2,7 @@
 #include <string>
 #include <initializer_list>
 #include <cassert>
+#include "core/config.hpp"
 #include "details/underlyingType.hpp"
 #include "details/expr.hpp"
 #include "details/traits.hpp"

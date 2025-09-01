@@ -1,4 +1,5 @@
 #pragma once
+#include "core/config.hpp"
 
 template<typename T>
 class Matrix;

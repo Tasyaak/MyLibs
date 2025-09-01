@@ -1,0 +1,17 @@
+# Нормализация переводов строк
+* text=auto eol=lf
+
+# Для файлов Visual Studio можно явно CRLF (по желанию)
+*.sln      text eol=crlf
+*.vcxproj  text eol=crlf
+*.filters  text eol=crlf
+*.props    text eol=crlf
+
+# Бинарники
+*.lib binary
+*.dll binary
+*.exe binary
+*.pdb binary
+
+# Подсветка/статистика GitHub
+*.tpp linguist-language=C++
