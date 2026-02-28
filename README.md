@@ -9,15 +9,16 @@ Static library for numerical methods (linear algebra and ODE methods)
 
 
 ## Features
-| Class                                                                                                    | One-line features                     |
-| -------------------------------------------------------------------------------------------------------- | ------------------------------------- |
-| [Matrix](MyLibs/include/linalg/Matrix.hpp)                                                               | Arithmetic, det & inv (Gauss), LU, QR |
-| [Vector](MyLibs/include/linalg/Vector.hpp)                                                               | Arithmetic, ‖·‖₁ & ‖·‖₂ & ‖·‖∞, dot   |
-| [ColumnVector](MyLibs/include/linalg/ColumnVector.hpp), [RowVector](MyLibs/include/linalg/RowVector.hpp) | Transpose, matrix-vector products     |
-| [GaussMethod](MyLibs/include/linalg/GaussMethod.hpp)                                                     | Solve via Gaussian elimination        |
-| [QRAlgorithm](MyLibs/include/linalg/QRAlgorithm.hpp)                                                     | Solve via QR factorization            |
-| [TridiagonalMatrixAlgorithm](MyLibs/include/linalg/TridiagonalMatrixAlgorithm.hpp)                       | Thomas algorithm                      |
-| [AdamsMoultonMethod](MyLibs/include/ode/AdamsMoultonMethod.hpp)                                          | Implicit 5-step IVP solver            |
+| Class                                                                                                    | One-line features                                 |
+| -------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| [Matrix](MyLibs/include/linalg/Matrix.hpp)                                                               | Arithmetic, det & inv (Gauss), LU, QR             |
+| [Vector](MyLibs/include/linalg/Vector.hpp)                                                               | Arithmetic, ‖·‖₁ & ‖·‖₂ & ‖·‖∞, dot               |
+| [ColumnVector](MyLibs/include/linalg/ColumnVector.hpp), [RowVector](MyLibs/include/linalg/RowVector.hpp) | Transpose, matrix-vector products                 |
+| [GaussMethod](MyLibs/include/linalg/GaussMethod.hpp)                                                     | Solve via Gaussian elimination                    |
+| [QRAlgorithm](MyLibs/include/linalg/QRAlgorithm.hpp)                                                     | Solve via QR factorization                        |
+| [TridiagonalMatrixAlgorithm](MyLibs/include/linalg/TridiagonalMatrixAlgorithm.hpp)                       | Thomas algorithm                                  |
+| [AdamsMoultonMethod](MyLibs/include/ode/AdamsMoultonMethod.hpp)                                          | Implicit 5-step IVP solver                        |
+| [NewtonCotes](MyLibs/include/numerics/NewtonCotes.hpp)                                                   | Composite closed Newton-Cotes quadrature formulas |
 
 - **[Matrix](MyLibs/include/linalg/Matrix.hpp)**:
   - arithmetic on matrices
@@ -42,6 +43,8 @@ Static library for numerical methods (linear algebra and ODE methods)
   - solves tridiagonal linear systems via Thomas algorithm
 - **[AdamsMoultonMethod](MyLibs/include/ode/AdamsMoultonMethod.hpp)**:
   - implicit 5-step Adams-Moulton solver for initial-value problems for ODEs and systems of ODE
+- **[NewtonCotes](MyLibs/include/numerics/NewtonCotes.hpp)**:
+  - Composite closed Newton-Cotes quadrature formulas for the numerical integration of a real-valued function over a given interval, with a specified interpolation polynomial degree and number of subintervals (panels).
 
 ### Expression templates (lazy evaluation)
 Matrix and vector arithmetic uses expression templates. Chained expressions allocate no temporaries and evaluation is fused at assignment.
@@ -52,6 +55,7 @@ Example: `D = A + B + 2 * C;` performs a single pass
 graph LR
   A{MyLibs} --> B(linalg)
   A --> C(ode)
+  A --> R(numerics)
   B --> D[Matrix.hpp]
   B --> E[Vector.hpp]
   B --> F[ColumnVector.hpp]
@@ -60,6 +64,7 @@ graph LR
   B --> I[QRAlgorithm.hpp]
   B --> J[TridiagonalMatrixAlgorithm.hpp]
   C --> K[AdamsMoultonMethod.hpp]
+  R --> T[NewtonCotes.hpp]
 ```
 
 ## Requirements
