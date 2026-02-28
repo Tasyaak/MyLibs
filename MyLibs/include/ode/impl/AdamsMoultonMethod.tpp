@@ -1,9 +1,12 @@
+#pragma once
 #include <vector>
 #include <tuple>
-#include "../AdamsMoultonMethod.hpp"
 #include "linalg/ColumnVector.hpp"
 #include "linalg/Matrix.hpp"
 #include "linalg/GaussMethod.hpp"
+#ifdef __INTELLISENSE__
+#include "../AdamsMoultonMethod.hpp"
+#endif
 
 template<typename StateType>
 StateType AdamsMoultonMethod<StateType>::G(const StateType& y, const StateType& yn, double tn, double h, const StateType& f0, const StateType& f1, const StateType& f2, const StateType& f3) const

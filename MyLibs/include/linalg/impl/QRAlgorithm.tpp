@@ -1,9 +1,12 @@
+#pragma once
 #include <cmath>
 #include <tuple>
+#include "linalg/GaussMethod.hpp"
+#include "linalg/Matrix.hpp"
+#include "linalg/ColumnVector.hpp"
+#ifdef __INTELLISENSE__
 #include "../QRAlgorithm.hpp"
-#include "../GaussMethod.hpp"
-#include "../Matrix.hpp"
-#include "../ColumnVector.hpp"
+#endif
 
 template<typename T>
 T* QRAlgorithm<T>::solveSystem(const Matrix<T>& A, T* b, const double eps)

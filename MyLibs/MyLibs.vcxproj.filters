@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Файлы заголовков\Details">
-      <UniqueIdentifier>{4beba07b-945b-4091-bdf5-3766e4fb77de}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Файлы заголовков\ode">
       <UniqueIdentifier>{92f4c7c1-0a98-48b8-aefa-dc2c4a9da5c3}</UniqueIdentifier>
     </Filter>
@@ -36,6 +33,15 @@
     </Filter>
     <Filter Include="Файлы заголовков\linalg\details">
       <UniqueIdentifier>{0a3f7647-5bcf-4705-af13-c04e6b8e2898}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\numerics">
+      <UniqueIdentifier>{9f1cc571-7c53-4d02-912e-a81e75e144a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\numerics\details">
+      <UniqueIdentifier>{9ff8a978-6eb7-4b5c-9cc0-404e361a9983}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\numerics\impl">
+      <UniqueIdentifier>{7d89f4eb-fd78-43cf-b12d-e7c856786a0c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -92,31 +98,35 @@
     <ClInclude Include="include\core\RingBuffer.hpp">
       <Filter>Файлы заголовков\core</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="include\linalg\impl\ColumnVector.tpp">
-      <Filter>Файлы заголовков\linalg\impl</Filter>
-    </None>
-    <None Include="include\linalg\impl\GaussMethod.tpp">
-      <Filter>Файлы заголовков\linalg\impl</Filter>
-    </None>
-    <None Include="include\linalg\impl\Matrix.tpp">
-      <Filter>Файлы заголовков\linalg\impl</Filter>
-    </None>
-    <None Include="include\linalg\impl\QRAlgorithm.tpp">
-      <Filter>Файлы заголовков\linalg\impl</Filter>
-    </None>
-    <None Include="include\linalg\impl\RowVector.tpp">
-      <Filter>Файлы заголовков\linalg\impl</Filter>
-    </None>
-    <None Include="include\linalg\impl\TridiagonalMatrixAlgorithm.tpp">
-      <Filter>Файлы заголовков\linalg\impl</Filter>
-    </None>
-    <None Include="include\linalg\impl\Vector.tpp">
-      <Filter>Файлы заголовков\linalg\impl</Filter>
-    </None>
-    <None Include="include\ode\impl\AdamsMoultonMethod.tpp">
+    <ClInclude Include="include\numerics\NewtonCotes.hpp">
+      <Filter>Файлы заголовков\numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\numerics\impl\NewtonCotes.tpp">
+      <Filter>Файлы заголовков\numerics\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ode\impl\AdamsMoultonMethod.tpp">
       <Filter>Файлы заголовков\ode\impl</Filter>
-    </None>
+    </ClInclude>
+    <ClInclude Include="include\linalg\impl\Vector.tpp">
+      <Filter>Файлы заголовков\linalg\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\linalg\impl\ColumnVector.tpp">
+      <Filter>Файлы заголовков\linalg\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\linalg\impl\GaussMethod.tpp">
+      <Filter>Файлы заголовков\linalg\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\linalg\impl\Matrix.tpp">
+      <Filter>Файлы заголовков\linalg\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\linalg\impl\QRAlgorithm.tpp">
+      <Filter>Файлы заголовков\linalg\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\linalg\impl\RowVector.tpp">
+      <Filter>Файлы заголовков\linalg\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\linalg\impl\TridiagonalMatrixAlgorithm.tpp">
+      <Filter>Файлы заголовков\linalg\impl</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

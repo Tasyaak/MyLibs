@@ -1,6 +1,10 @@
+#pragma once
+#include "linalg/Matrix.hpp"
+#include "linalg/ColumnVector.hpp"
+#ifdef __INTELLISENSE__
 #include "../TridiagonalMatrixAlgorithm.hpp"
-#include "../Matrix.hpp"
-#include "../ColumnVector.hpp"
+#endif
+
 
 template<typename T>
 T* TridiagonalMatrixAlgorithm<T>::solveSystem(const Matrix<T>& A, T* b)

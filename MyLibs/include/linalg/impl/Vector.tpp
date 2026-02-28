@@ -1,9 +1,12 @@
+#pragma once
 #include <iostream>
 #include <iomanip>
 #include <sstream>
 #include <cmath>
-#include "../Vector.hpp"
 #include "core/complexUtils.hpp"
+#ifdef __INTELLISENSE__
+#include "../Vector.hpp"
+#endif
 
 template<typename Derived, typename T>
 Vector<Derived, T>::Vector(T* ptrArray, std::size_t n) : data(nullptr), n(n)

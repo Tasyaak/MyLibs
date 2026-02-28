@@ -1,12 +1,15 @@
+#pragma once
 #include <iostream>
 #include <iomanip>
 #include <sstream>
 #include <algorithm>
 #include <cmath>
-#include "../Matrix.hpp"
-#include "../ColumnVector.hpp"
-#include "../RowVector.hpp"
+#include "linalg/ColumnVector.hpp"
+#include "linalg/RowVector.hpp"
 #include "core/complexUtils.hpp"
+#ifdef __INTELLISENSE__
+#include "../Matrix.hpp"
+#endif
 
 template<typename T>
 Matrix<T>::Matrix(T** ptrMatrix, std::size_t n) : data(nullptr), n(n), m(n)

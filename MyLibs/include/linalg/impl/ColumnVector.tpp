@@ -1,6 +1,9 @@
+#pragma once
+#include "linalg/RowVector.hpp"
+#include "linalg/Matrix.hpp"
+#ifdef __INTELLISENSE__
 #include "../ColumnVector.hpp"
-#include "../RowVector.hpp"
-#include "../Matrix.hpp"
+#endif
 
 template <typename T>
 Matrix<T> ColumnVector<T>::operator * (const RowVector<T>& v) const

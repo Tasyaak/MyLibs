@@ -160,6 +160,7 @@
     <ClInclude Include="include\linalg\details\expr.hpp" />
     <ClInclude Include="include\linalg\details\fwd.hpp" />
     <ClInclude Include="include\linalg\details\ops.hpp" />
+    <ClInclude Include="include\numerics\NewtonCotes.hpp" />
     <ClInclude Include="include\ode\AdamsMoultonMethod.hpp" />
     <ClInclude Include="include\linalg\ColumnVector.hpp" />
     <ClInclude Include="include\core\complexUtils.hpp" />
@@ -174,30 +175,42 @@
     <ClInclude Include="include\linalg\Vector.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="include\ode\impl\AdamsMoultonMethod.tpp">
+    <ClInclude Include="include\numerics\impl\NewtonCotes.tpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </None>
-    <None Include="include\linalg\impl\ColumnVector.tpp">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Include="include\ode\impl\AdamsMoultonMethod.tpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </None>
-    <None Include="include\linalg\impl\GaussMethod.tpp">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Include="include\linalg\impl\ColumnVector.tpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </None>
-    <None Include="include\linalg\impl\Matrix.tpp">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Include="include\linalg\impl\GaussMethod.tpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </None>
-    <None Include="include\linalg\impl\QRAlgorithm.tpp">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Include="include\linalg\impl\Matrix.tpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </None>
-    <None Include="include\linalg\impl\RowVector.tpp">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Include="include\linalg\impl\QRAlgorithm.tpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </None>
-    <None Include="include\linalg\impl\TridiagonalMatrixAlgorithm.tpp">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Include="include\linalg\impl\RowVector.tpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </None>
-    <None Include="include\linalg\impl\Vector.tpp">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Include="include\linalg\impl\TridiagonalMatrixAlgorithm.tpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </None>
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Include="include\linalg\impl\Vector.tpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

@@ -1,7 +1,10 @@
+#pragma once
 #include <cmath>
+#include "linalg/Matrix.hpp"
+#include "linalg/ColumnVector.hpp"
+#ifdef __INTELLISENSE__
 #include "../GaussMethod.hpp"
-#include "../Matrix.hpp"
-#include "../ColumnVector.hpp"
+#endif
 
 template<typename T>
 void GaussMethod<T>::forwardElimination(Matrix<T>& A, const double eps)
