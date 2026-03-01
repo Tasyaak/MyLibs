@@ -1,10 +1,8 @@
 #pragma once
 #include <cstddef>      // std::size_t
 #include <type_traits>  // std::enable_if_t, std::is_invocable_r_v
-#include <functional>   // std::invoke
 #include <utility>      // std::forward
 
-// The order of accuracy equals degree_ + 1 when degree_ is even, and degree_ + 2 when degree_ is odd
 template <class Real = double>
 class NewtonCotes
 {
@@ -13,10 +11,7 @@ class NewtonCotes
 
 public:
 	static constexpr std::size_t min_degree = 1;
-	/*
-		* @param degree  n >= 1: rule uses (n+1) equally spaced nodes per panel
-		* @param panels  M >= 1: number of panels in composite rule
-	*/
+
 	NewtonCotes() = delete;
 	NewtonCotes(const NewtonCotes&) = delete;
 	NewtonCotes& operator=(const NewtonCotes&) = delete;
@@ -53,23 +48,26 @@ public:
 	[[nodiscard]] std::size_t degree() const noexcept { return degree_; }
 	[[nodiscard]] std::size_t panels() const noexcept { return panels_; }
 
-	void set_panels(std::size_t panels); // веса не пересчитываются
-	void set_degree(std::size_t degree); // пересчитываем базовые узлы/веса
+	void set_panels(std::size_t panels);
+	void set_degree(std::size_t degree);
 
-	/// Доступ к узлам/весам базового правила на [0;1] (узлы равномерные)
 	[[nodiscard]] const Real* nodes_unit() const noexcept { return nodes_unit_; }		// size = degree_+1
 	[[nodiscard]] const Real* weights_unit() const noexcept { return weights_unit_; }	// size = degree_+1
 
 	template <class F>
 	[[nodiscard]] std::enable_if_t<std::is_invocable_r_v<Real, F, Real>, Real>
-		integrate(F&& f, Real a, Real b) const;
+		integrate_fixed(F&& f, Real a, Real b) const;
 
-	// Удобный вызов как функтора
 	template <class F>
 	[[nodiscard]] std::enable_if_t<std::is_invocable_r_v<Real, F, Real>, Real>
-		operator()(F&& f, Real a, Real b) const
+		integrate(F&& f, Real a, Real b, Real tol, std::size_t max_depth = 25) const;
+
+
+	template <class F>
+	[[nodiscard]] std::enable_if_t<std::is_invocable_r_v<Real, F, Real>, Real>
+		operator()(F&& f, Real a, Real b, Real tol, std::size_t max_depth = 25) const
 	{
-		return integrate(std::forward<F>(f), a, b);
+		return integrate(std::forward<F>(f), a, b, tol, max_depth);
 	}
 
 	~NewtonCotes()
@@ -83,8 +81,17 @@ private:
 	Real* weights_unit_ = nullptr;
 	std::size_t degree_ = 0;
 	std::size_t panels_ = 0;
+	std::size_t p = 0;	// order of accuracy p = degree_ + 1 when degree_ is even, p = degree_ + 2 when degree_ is odd
 
-	void build_rule_(); // Строит nodes_unit_ и weights_unit_ для closed Newton–Cotes на [0;1]
+	void build_rule_(); // nodes_unit_ и weights_unit_ for closed Newton–Cotes on [0;1]
+
+	template <class F>
+	[[nodiscard]] std::enable_if_t<std::is_invocable_r_v<Real, F, Real>, Real>
+		integrate_panel(F&& f, Real a, Real b, std::size_t panels_local) const;
+
+	template <class F>
+	[[nodiscard]] std::enable_if_t<std::is_invocable_r_v<Real, F, Real>, Real>
+		adaptive_rec(F&& f, Real a, Real b, Real tol, Real Q1, std::size_t depth, std::size_t panels_local) const;
 };
 
 #include "impl/NewtonCotes.tpp"
